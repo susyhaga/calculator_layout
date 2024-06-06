@@ -1,6 +1,7 @@
 <script setup>
 import { reactive } from "vue";
 
+
 const estado = reactive({
   operator: "",
   num1: "",
@@ -11,7 +12,14 @@ const estado = reactive({
 const sub = ({ num1, num2 }) => num1 - num2;
 const add = ({ num1, num2 }) => num1 + num2;
 const mult = ({ num1, num2 }) => num1 * num2;
-const div = ({ num1, num2 }) => num1 / num2;
+const div = ({ num1, num2 }) => {
+  const result = num1 / num2;
+  if (!isFinite(result)) {
+    return "Error! ÷ by 0 is not allowed";
+  } else {
+    return result;
+  }
+};
 
 function capturaValor1(evento) {
   estado.num1 = evento.target.value;
@@ -212,7 +220,8 @@ function Calculate(value, type) {
 </template>
 
 <style scoped>
-.container {
+.container{
+  width: 70%;
   margin: 0 auto;
 }
 
@@ -225,7 +234,7 @@ function Calculate(value, type) {
 }
 
 .form_calculator {
-  padding: 50px;
+  padding: 20px;
 }
 
 .form_calculator-screem {
@@ -265,8 +274,9 @@ function Calculate(value, type) {
 }
 
 @media (max-width: 600px) {
+  
   .calculator {
-    width: auto;
+    
     border-radius: 10px;
   }
   .form_calculator {
@@ -276,7 +286,7 @@ function Calculate(value, type) {
 
   .form_calculator-screem {
     width: 90%;
-    display: block;
+  
   }
 
   .screem {
